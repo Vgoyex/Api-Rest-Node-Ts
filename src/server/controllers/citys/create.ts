@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
-class ICitys {
-    public name: string | undefined;
+interface ICitys {
+    name: string;
 }
 
 export const create = (req: Request<{}, {}, ICitys>,res: Response) => {
