@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { StatusCodes } from "http-status-codes";
-import { cidadesController } from "./../controllers";
-import { peopleController } from "./../controllers";
+import { Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { cidadesController } from './../controllers';
+import { peopleController } from './../controllers';
 
 const router = Router();
 

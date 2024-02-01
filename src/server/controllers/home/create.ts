@@ -1,16 +1,17 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import * as yup from 'yup'
+import * as yup from 'yup';
 
-interface IPeople {
+
+interface IHome {
     name: string;
 }
 
-const bodyValidation:yup.ObjectSchema<IPeople> = yup.object().shape({
+const bodyValidation: yup.ObjectSchema<IHome> = yup.object().shape({
     name: yup.string().required().min(3),
-})
+});
 
-export const create = async (req: Request<{},{},IPeople>, res: Response) => {
+const create = async (req: Request<{},{},IHome>, res: Response) => {
 
     try{
         await bodyValidation.validate(req.body);
@@ -21,17 +22,17 @@ export const create = async (req: Request<{},{},IPeople>, res: Response) => {
     }catch(err){
         const yupError = err as yup.ValidationError;
         return res.status(StatusCodes.BAD_REQUEST).json({
-            response:{
+            response: {
                 id: "xpto",
                 error: yupError.message,
                 received: {
-                    body: req.body
+                    body: req.body,
                 }
-            },
-        });
+            }
+        })
     }
-
-    console.log(req.body.name);
-
     
 }
+
+
+
