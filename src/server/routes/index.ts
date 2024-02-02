@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { cidadesController } from './../controllers';
 import { peopleController } from './../controllers';
+import { homeController } from '../controllers/home'; 
 
 const router = Router();
 
@@ -12,6 +13,8 @@ router.get("/", (req,res) => {
 router.post("/citys", cidadesController.create);
 
 router.post("/people", peopleController.create);
+
+router.post("/home", homeController.create);
 
 router.get("/test", (req,res) => {
     console.log("RES test");

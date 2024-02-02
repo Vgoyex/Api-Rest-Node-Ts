@@ -8,13 +8,15 @@ interface ICitys {
 
 const bodyValidation: yup.ObjectSchema<ICitys> =  yup.object().shape({
     name: yup.string().required().min(3),
+    state: yup.string().required().min(3),
 })
 
 
 export const create = async (req: Request<{}, {}, ICitys>,res: Response) => {
 
+    let validatedData: ICitys | undefined = undefined;
     try{
-        let validatedBody = await bodyValidation.validate(req.body);
+        validatedData = await bodyValidation.validate(req.body, { abortEarly: false });
         // console.log(validatedBody.name);
         return res.send({
             id:"xpto",
@@ -23,10 +25,18 @@ export const create = async (req: Request<{}, {}, ICitys>,res: Response) => {
 
     }catch(err){
         const yupError = err as yup.ValidationError;
+        const validationErrors: Record<string, string> = {} 
+        
+        //All possible error will be at validationErrors
+        yupError.inner.forEach(err => {
+            if(!err.path) return
+            validationErrors[err.path] = err.message;
+        })
+
         return res.status(StatusCodes.BAD_REQUEST).json({
             response:{
                 id: "xpto",
-                error: yupError.message,
+                error: validationErrors,
                 received: {
                     body: req.body
                 }

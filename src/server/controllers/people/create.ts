@@ -11,15 +11,24 @@ const bodyValidation:yup.ObjectSchema<IPeople> = yup.object().shape({
 })
 
 export const create = async (req: Request<{},{},IPeople>, res: Response) => {
-
+    let validatedData: IPeople | undefined = undefined;
     try{
-        await bodyValidation.validate(req.body);
+       let validatedData = await bodyValidation.validate(req.body, {abortEarly: false});
         return res.send({
             id: "xpto",
             response: req.body
         });
     }catch(err){
         const yupError = err as yup.ValidationError;
+        const validationErrors:Record<string,string> = {};
+
+        //All possible error will be at validationErrors
+        yupError.inner.forEach(err => {
+            if(!err.path) return
+            validationErrors[err.path] = err.message;
+        })
+
+        
         return res.status(StatusCodes.BAD_REQUEST).json({
             response:{
                 id: "xpto",
