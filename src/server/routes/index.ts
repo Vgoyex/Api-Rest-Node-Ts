@@ -12,8 +12,7 @@ router.get("/", (req, res) => {
 
 router.post(
   "/citys",
-  cidadesController.createValidation,
-  cidadesController.create
+  cidadesController.createValidation,cidadesController.create
 );
 
 router.post("/people", peopleController.create);
