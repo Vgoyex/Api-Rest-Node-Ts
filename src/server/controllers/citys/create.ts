@@ -6,6 +6,9 @@ interface ICitys {
   name: string;
   state: string;
 }
+interface IFilter {
+  filter?: string;
+}
 
 const bodyValidation: yup.ObjectSchema<ICitys> = yup.object().shape({
   name: yup.string().required().min(3),
@@ -37,9 +40,6 @@ export const createBodyValidator: RequestHandler = async (req, res, next) => {
   }
 };
 
-interface IFilter {
-  filter?: string;
-}
 
 const queryValidation: yup.ObjectSchema<IFilter> = yup.object().shape({
   filter: yup.string().min(3),

@@ -19,7 +19,12 @@ router.post(
 
 router.post("/people", peopleController.create);
 
-router.post("/home", homeController.create);
+router.post(
+  "/home",
+  homeController.createBodyValidator,
+  homeController.createQueryValidator,
+  homeController.create,
+);
 
 router.get("/test", (req, res) => {
   console.log("RES test");
