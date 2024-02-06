@@ -12,8 +12,7 @@ router.get("/", (req, res) => {
 
 router.post(
   "/citys",
-  cidadesController.createBodyValidator,
-  cidadesController.createQueryValidator,
+  cidadesController.createValidation,
   cidadesController.create
 );
 
@@ -23,7 +22,7 @@ router.post(
   "/home",
   homeController.createBodyValidator,
   homeController.createQueryValidator,
-  homeController.create,
+  homeController.create
 );
 
 router.get("/test", (req, res) => {
