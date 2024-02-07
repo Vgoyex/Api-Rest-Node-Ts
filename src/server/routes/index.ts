@@ -12,17 +12,17 @@ router.get("/", (req, res) => {
 
 router.post(
   "/citys",
-  cidadesController.createValidation,cidadesController.create
+  cidadesController.createValidation,
+  cidadesController.create
 );
-
-router.post("/people", peopleController.create);
 
 router.post(
-  "/home",
-  homeController.createBodyValidator,
-  homeController.createQueryValidator,
-  homeController.create
+  "/people",
+  peopleController.createValidation,
+  peopleController.create
 );
+
+router.post("/home", homeController.createValidation, homeController.create);
 
 router.get("/test", (req, res) => {
   console.log("RES test");
