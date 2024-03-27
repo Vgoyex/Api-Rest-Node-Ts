@@ -104,3 +104,5 @@ export const create = async (req: Request<{}, {}, ICitys>, res: Response) => {
 
   console.log(req.body);
 };
+
+
